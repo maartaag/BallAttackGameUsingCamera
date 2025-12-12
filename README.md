@@ -1,15 +1,15 @@
 # 🎮 Ball Attack amb Handpose
 
 ## ✨ Explicación de la interfaz alternativa
-Esta versión del juego **Ball Attack** sustituye los botones tradicionales por una interfaz basada en la cámara y la detección de manos.  
+En vez de usar los botones tradicionales, uso la detección de manos a través de la cámara.  
 El jugador ve su propia imagen en la pantalla y tres cajas en la parte superior: **rojo (izquierda)**, **azul (centro)** y **verde (derecha)**.  
-Al colocar la mano en una de estas zonas, el sistema interpreta el gesto como un disparo del color correspondiente.
+Al colocar la mano en una de estas zonas, es como un disparo del color correspondiente.
 
 ## 🖐️ Input elegido y por qué
-El input elegido es **la posición espacial de la mano detectada con Handpose (ml5.js)**.  
+El input elegido es la posición de la mano.  
 - Se utiliza la punta del dedo índice como referencia.  
-- Se ha elegido este input porque permite una experiencia más **interactiva y natural**, sin necesidad de botones físicos ni teclado.  
-- El efecto espejo en la cámara asegura que lo que el jugador ve coincide con la detección (mano derecha → zona derecha).
+- Se ha elegido este input porque permite una experiencia más **interactiva y natural**, sin usar botones.  
+- Hemos invertido la cámara para que sea intuitivo (mano derecha → zona derecha).
 
 ## 🎲 Cómo se usa para jugar
 1. Pulsa el botón **Start** para comenzar la partida.  
@@ -21,10 +21,6 @@ El input elegido es **la posición espacial de la mano detectada con Handpose (m
 4. Si aciertas, la bola desaparece y sumas puntos. Si fallas, pierdes puntuación.  
 5. Puedes pausar la partida con el botón **Pause** y reanudarla cuando quieras.  
 6. El juego termina cuando una bola llega al final del recorrido (**Game Over**).
-
-## 📸 Capturas opcionales
-<img width="1085" height="898" alt="image" src="https://github.com/user-attachments/assets/fc01df4d-7c32-4040-920f-c4e29c3c5726" />
-
 
 ## 📚 Créditos de librerías externas
 - [p5.js](https://p5js.org/) → Librería principal para gráficos y canvas.  
