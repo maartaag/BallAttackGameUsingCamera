@@ -1,15 +1,12 @@
-// State & ml5
 let video,
   handpose,
   predictions = [];
 
-// Canvas & game
 let canvas;
 let balls = [];
 let score = 0;
 let gameState = "STOPPED"; // STOPPED | PLAYING | PAUSED | GAMEOVER
 
-// Shot control
 let lastShotTime = 0;
 let shotDelay = 500; // ms
 
@@ -20,7 +17,6 @@ const COLOR_CONFIG = [
   { name: "BLAU", fill: "#3498db" }, // centre
 ];
 
-// Path params
 let ballRadius = 20;
 let ballSpacing = ballRadius * 2;
 let pathProgress = 0;
@@ -81,7 +77,6 @@ function startGame() {
 }
 
 function draw() {
-  // Fons vídeo amb mirall horitzontal i cantonades arrodonides
   push();
   translate(width, 0);
   scale(-1, 1);
@@ -115,7 +110,6 @@ function draw() {
   updateScoreUI();
 }
 
-// Camera rounded corners
 function drawCameraRounded() {
   drawingContext.save();
   drawingContext.beginPath();
@@ -125,7 +119,6 @@ function drawCameraRounded() {
   drawingContext.restore();
 }
 
-// Zones UI
 function drawZones() {
   const boxW = 110;
   const boxH = 50;
@@ -154,23 +147,19 @@ function drawZones() {
   text("VERD", width - boxW / 2 - 18, y + boxH / 2);
 }
 
-// Detecció mà
 function detectHandZone() {
   if (predictions.length === 0) return;
 
   const hand = predictions[0];
   const tip = hand.landmarks[8];
 
-  // Invertim x per compensar el mirall visual
   let x = width - tip[0];
   let y = tip[1] + 30; // ajust vertical
 
-  // Punt indicador
   fill(255, 255, 0);
   noStroke();
   ellipse(x, y, 14, 14);
 
-  // Zones per x
   let chosenIndex;
   if (x < width / 3) {
     chosenIndex = 1; // esquerra → vermell
@@ -180,14 +169,12 @@ function detectHandZone() {
     chosenIndex = 0; // dreta → verd
   }
 
-  // Cooldown de dispar
   if (millis() - lastShotTime > shotDelay) {
     shootWithColor(chosenIndex);
     lastShotTime = millis();
   }
 }
 
-// HUD dins canvas
 function drawHud() {
   fill(0, 160);
   rect(10, height - 48, 180, 36, 10);
@@ -197,13 +184,11 @@ function drawHud() {
   text(`Puntuació: ${score}`, 20, height - 30);
 }
 
-// Score fora del canvas
 function updateScoreUI() {
   const scoreDiv = select("#score");
   if (scoreDiv) scoreDiv.html("Puntuació: " + score);
 }
 
-// Game over UI
 function drawGameOver() {
   fill(255, 60, 60);
   textAlign(CENTER, CENTER);
@@ -215,7 +200,6 @@ function drawGameOver() {
   text(`Puntuació final: ${score}`, width / 2, height / 2 + 10);
 }
 
-// Game logic
 function computePathSpeed(frontY) {
   let p = constrain(frontY / height, 0, 1);
   p = Math.pow(p, SPEED_CURVE);
@@ -307,12 +291,11 @@ function drawGameOver() {
 function drawCameraRounded() {
   drawingContext.save();
   drawingContext.beginPath();
-  drawingContext.roundRect(0, 0, width, height, 30); // radi 30px
+  drawingContext.roundRect(0, 0, width, height, 30);
   drawingContext.clip();
   image(video, 0, 0, width, height);
   drawingContext.restore();
 }
 function updateDifficulty() {
-  // cada 50 punts, augmenta una mica la velocitat
   difficultyFactor = 1 + score / 100;
 }

@@ -6,3 +6,56 @@ html, body {
 canvas {
   display: block;
 }
+
+:root {
+        --accent: #00ffcc;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background: #000;
+        margin: 0;
+        display: grid;
+        grid-template-rows: auto auto auto 1fr;
+        justify-items: center;
+        color: #fff;
+        font-family: monospace;
+      }
+      h1 {
+        margin: 20px 0 10px;
+        font-size: 28px;
+        color: var(--accent);
+      }
+      #controls {
+        display: flex;
+        gap: 12px;
+        margin: 8px 0;
+      }
+      button {
+        font-family: inherit;
+        font-weight: bold;
+        font-size: 16px;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      #startBtn {
+        background: #2ecc71;
+        color: #fff;
+      }
+      #pauseBtn {
+        background: #e74c3c;
+        color: #fff;
+      }
+      #score {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      /* Canvas centrat i arrodonit */
+      canvas {
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0, 255, 204, 0.15);
+      }
