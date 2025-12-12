@@ -29,6 +29,7 @@ const SPEED_FAST = 1.4;
 const SPEED_SLOW = 0.25;
 const SPEED_CURVE = 1.6;
 
+let difficultyFactor = 1; // inicial
 function setup() {
   const s = Math.min(windowWidth, windowHeight) * 0.8;
   canvas = createCanvas(s, s);
@@ -90,23 +91,27 @@ function draw() {
   drawZones();
   drawHud();
 
+  if (gameState === "GAMEOVER") {
+    drawGameOver();
+    return;
+  }
+
   if (gameState !== "PLAYING") return;
 
   if (balls.length > 0) {
     const frontY = pathProgress - balls[0].distanceFromFront;
     if (frontY >= height - ballRadius * 1.2) {
       gameState = "GAMEOVER";
-      drawGameOver();
       return;
     }
-    pathSpeed = computePathSpeed(frontY);
+    updateDifficulty();
+    pathSpeed = computePathSpeed(frontY) * difficultyFactor;
   }
 
   pathProgress += pathSpeed;
   updateAndDrawBalls();
   checkBallsAtEnd();
-
-  detectHandZone(); // dispara segons zona
+  detectHandZone();
   updateScoreUI();
 }
 
@@ -306,4 +311,8 @@ function drawCameraRounded() {
   drawingContext.clip();
   image(video, 0, 0, width, height);
   drawingContext.restore();
+}
+function updateDifficulty() {
+  // cada 50 punts, augmenta una mica la velocitat
+  difficultyFactor = 1 + score / 100;
 }
